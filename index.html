@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game Catalog</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="index.js"></script>
     <script
       src="https://kit.fontawesome.com/7b96a85829.js"
       crossorigin="anonymous"
@@ -23,7 +22,8 @@
           </li>
           <li class="nav__link">
             <a href="#" class="nav__link--anchor link__hover-effect"
-              ><i class="fa-solid fa-magnifying-glass nav__link--search"></i>Search</a
+              ><i class="fa-solid fa-magnifying-glass nav__link--search"></i
+              >Search</a
             >
           </li>
           <li class="nav__link">
@@ -33,13 +33,49 @@
       </nav>
       <header id="header">
         <figure>
-            <img src="./assets/bg.jpg" class="header__img" alt="">
+          <img src="./assets/bg.jpg" class="header__img" alt="" />
         </figure>
         <div class="header__info">
-            <h2 class="header__title">Game <span class="green">Catalog</span></h2>
-            <h5 class="header__description">Browse our full library of 500,000+ games</h5>
+          <h2 class="header__title">Game <span class="green">Catalog</span></h2>
+          <h5 class="header__description">
+            Browse our full library of 800,000+ games
+          </h5>
+          <div class="search-bar">
+            <form action="#">
+              <input
+                type="text"
+                placeholder="Search by game title..."
+                name="search__input"
+              /><button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+          </div>
         </div>
       </header>
+      <div class="container">
+        <div class="row">
+          <div class="games__display--container">
+            <h2 class="games__display--title">
+              All <span class="green">Games</span>
+            </h2>
+            <div class="game-list">
+              <div class="game">
+                <div class="game-card">
+                  <div class="game-card__container">
+                    <img src="" alt="">
+                    <h5>Game Title</h5>
+                    <h6>Release Date</h6>
+                    <h6>Platforms</h6>
+                    <h6>Genres</h6>
+                    <h6>Average Playtime</h6>
+                    <h6>Score</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
+    <script src="index.js"></script>
   </body>
 </html>
