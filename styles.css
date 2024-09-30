@@ -1,12 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Titillium Web", sans-serif;
+  font-family: "Aldrich", sans-serif;
 }
 
 a {
@@ -23,6 +24,23 @@ li {
 
 section {
   background-color: #1f1f1f;
+}
+
+.container {
+  padding: 64px 0;
+}
+
+.row {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid white;
+  height: 1px;
+  margin: 8px 0;
 }
 
 /* 
@@ -126,6 +144,7 @@ HEADER
 .header__title {
   color: white;
   font-size: 48px;
+  margin-bottom: 12px;
 }
 
 .header__description {
@@ -157,14 +176,14 @@ HEADER
   background: transparent;
   border: none;
   font-size: 20px;
-  right: 10%;
+  right: 16%;
   top: 50%;
   transform: translateY(-50%);
   transition: all 300ms ease;
 }
 
 .search-bar button:hover {
-  filter: brightness(200%);
+  color: #649c14;
   cursor: pointer;
 }
 
@@ -174,14 +193,150 @@ GAME LIST
 
 */
 
+.score--green,
+.score--orange,
+.score--red {
+  padding: 8px;
+  border: 1px solid;
+  border-radius: 50%;
+  font-size: 24px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  color: black;
+}
+
 .score--green {
-    background-color: green;
+    border-color: green;
+    color: green;
 }
 
 .score--orange {
-    background-color: orange;
+    border-color: orange;
+    color: orange;
 }
 
 .score--red {
-    background-color: red;
+    border-color: red;
+    color: red;
+}
+
+.games__display--container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.games__display--title {
+  color: white;
+  font-size: 30px;
+  margin-bottom: 48px;
+}
+
+.game-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game-card__container {
+  width: 100%;
+  max-width: 350px;
+  flex-grow: 1;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 300ms ease;
+}
+
+.game-card__container:hover {
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.5);
+}
+
+.game-card__container:hover .game__img {
+  transform: scale(1.05);
+}
+
+.game-card {
+  width: calc(100% / 3);
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.game__img--wrapper {
+  width: 350px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.game__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 300ms ease;
+}
+
+.game__title {
+  color: white;
+  font-size: 20px;
+  margin: 8px 0 4px 0;
+}
+
+.game__title:hover {
+  text-decoration: underline;
+  cursor: no-drop;
+}
+
+.game__release-date {
+  font-size: 14px;
+}
+
+.game__platforms {
+  font-size: 16px;
+}
+
+.genres__label,
+.game__genres {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.game__release-date,
+.game__platforms,
+.genres__label,
+.game__genres {
+  color: rgb(187, 187, 187);
+  margin-bottom: 12px;
+}
+
+.game__title,
+.game__release-date,
+.game__platforms {
+  max-width: 230px;
+}
+
+.game__platforms i {
+  margin-right: 12px;
+}
+
+.genres {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game__genres {
+  text-decoration: underline;
+}
+
+.game__info {
+  position: relative;
+  padding: 16px 24px;
+}
+
+.game__score {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 8px;
+  padding: 16px 24px;
 }
