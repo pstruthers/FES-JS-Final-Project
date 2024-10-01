@@ -250,12 +250,13 @@ GAME LIST
 }
 
 .game-card__container {
+  position: relative;
   width: 100%;
   max-width: 350px;
   flex-grow: 1;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
-  overflow: hidden;
+  overflow: visible;
   transition: all 300ms ease;
 }
 
@@ -278,7 +279,8 @@ GAME LIST
   width: 350px;
   height: 200px;
   overflow: hidden;
-  position: relative;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .game__img {
@@ -286,6 +288,8 @@ GAME LIST
   height: 100%;
   object-fit: cover;
   transition: all 300ms ease;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .game__title {
@@ -329,6 +333,42 @@ GAME LIST
 
 .game__platforms i {
   margin-right: 12px;
+}
+
+.platform-icon,
+.game__score span {
+  position: relative;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+.platform-icon:hover {
+  color: white;
+}
+
+.platform-icon::after,
+.game__score span::after {
+  content: attr(data-tooltip);
+  font-family: "Aldrich", sans-serif;
+  font-weight: 400;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.platform-icon:hover::after,
+.game__score span:hover::after {
+  opacity: 1;
 }
 
 .genres {

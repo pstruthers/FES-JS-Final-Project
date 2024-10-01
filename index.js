@@ -13,34 +13,58 @@ main();
 
 function gameHTML(game) {
   const gamePlatformsShort = {
-    "PlayStation 5": `<i class="fa-brands fa-playstation"></i>`,
-    "PlayStation 4": `<i class="fa-brands fa-playstation"></i>`,
-    "PlayStation 3": `<i class="fa-brands fa-playstation"></i>`,
-    "PlayStation 2": `<i class="fa-brands fa-playstation"></i>`,
-    "PlayStation 1": `<i class="fa-brands fa-playstation"></i>`,
-    "PlayStation": `<i class="fa-brands fa-playstation"></i>`,
-    "Xbox" : `<i class="fa-brands fa-xbox"></i>`,
-    "Xbox 360" : `<i class="fa-brands fa-xbox"></i>`,
-    "Xbox One" : `<i class="fa-brands fa-xbox"></i>`,
-    "Xbox Series S/X" : `<i class="fa-brands fa-xbox"></i>`,
-    "Linux" : `<i class="fa-brands fa-linux"></i>`,
-    "PC" : `<i class="fa-brands fa-windows"></i>`,
-    "macOS": `<i class="fa-solid fa-desktop"></i>`,
-    "iOS" : `<i class="fa-brands fa-apple"></i>`,
-    "Android" : `<i class="fa-brands fa-android"></i>`,
-    "Nintendo Switch" : `<i class="fa-solid fa-n"></i>`
+    PlayStation: [
+      "PlayStation 1",
+      "PlayStation 2",
+      "PlayStation 3",
+      "PlayStation 4",
+      "PlayStation 5",
+    ],
+    Xbox: ["Xbox", "Xbox 360", "Xbox One", "Xbox Series S/X"],
+    PC: ["PC"],
+    macOS: ["macOS"],
+    iOS: ["iOS"],
+    Android: ["Android"],
+    "Nintendo Switch": ["Nintendo Switch"],
   };
 
-  const uniqueLogos = new Set();
+  const platformToLogo = {
+    PlayStation: `<i class="fa-brands fa-playstation"></i>`,
+    Xbox: `<i class="fa-brands fa-xbox"></i>`,
+    PC: `<i class="fa-brands fa-windows"></i>`,
+    macOS: `<i class="fa-solid fa-desktop"></i>`,
+    iOS: `<i class="fa-brands fa-apple"></i>`,
+    Android: `<i class="fa-brands fa-android"></i>`,
+    "Nintendo Switch": `<i class="fa-solid fa-n"></i>`,
+  };
 
-  game.platforms.forEach(platform => {
-    const logo = gamePlatformsShort[platform.platform.name];
-    if (logo) {
-      uniqueLogos.add(logo);
+  const platformsGrouped = {};
+
+  // Group the platforms by their icon types
+  game.platforms.forEach((platform) => {
+    const platformName = platform.platform.name;
+
+    for (const key in gamePlatformsShort) {
+      if (gamePlatformsShort[key].includes(platformName)) {
+        if (!platformsGrouped[key]) {
+          platformsGrouped[key] = [];
+        }
+        platformsGrouped[key].push(platformName);
+      }
     }
   });
 
-  const sortedUniqueLogos = Array.from(uniqueLogos).sort().join("");
+  // Generate the platform icons with tooltips
+  const platformIconsHTML = Object.keys(platformsGrouped)
+    .map((key) => {
+      const tooltipContent = platformsGrouped[key].join(", ");
+      const logo = platformToLogo[key];
+      return `
+      <span class="platform-icon" data-tooltip="${tooltipContent}">
+        ${logo}
+      </span>`;
+    })
+    .join("");
 
   const gameGenres = game.genres.map((genre) => genre.name).join(", ");
 
@@ -68,12 +92,12 @@ function gameHTML(game) {
               <div class="game__info">
                 <h5 class="game__title">${game.name}</h5>
                 <h6 class="game__release-date">${formattedReleaseDate}</h6>
-                <h6 class="game__platforms">${sortedUniqueLogos}</h6>
+                <h6 class="game__platforms">${platformIconsHTML}</h6>
                 <div class="genres">
                   <h6 class="genres__label">Genres:</h6>
                   <h6 class="game__genres">${gameGenres}</h6>
                 </div>
-                <h6 class="game__score"><span class="${scoreColor}">${game.metacritic}</span></h6>
+                <h6 class="game__score"><span class="${scoreColor}" data-tooltip="Metacritic score">${game.metacritic}</span></h6>
                 </div>
               </div>
             </div>`;
