@@ -12,25 +12,26 @@
   </head>
   <body>
     <section id="landing">
-      <nav>
-        <figure>
-          <img src="./assets/logo.png" class="logo__img" alt="" />
-        </figure>
-        <ul class="nav__link--list">
-          <li class="nav__link">
-            <a href="#" class="nav__link--anchor link__hover-effect">Home</a>
-          </li>
-          <li class="nav__link">
-            <a href="#" class="nav__link--anchor link__hover-effect"
-              ><i class="fa-solid fa-magnifying-glass nav__link--search"></i
-              >Search</a
-            >
-          </li>
-          <li class="nav__link">
-            <a href="#" class="nav__link--anchor link__hover-effect">Profile</a>
-          </li>
-        </ul>
-      </nav>
+      <div class="nav">
+        <nav>
+          <figure>
+            <img src="./assets/logo.png" class="logo__img" alt="" />
+          </figure>
+          <ul class="nav__link--list">
+            <li class="nav__link">
+              <a href="#" class="nav__link--anchor link__hover-effect">Home</a>
+            </li>
+            <li class="nav__link">
+              <a href="#" class="nav__link--anchor link__hover-effect no-click"
+                >Contact</a
+              >
+            </li>
+            <li class="nav__link">
+              <a href="#" class="nav__link--anchor link__hover-effect no-click">Profile</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
       <header id="header">
         <figure>
           <img src="./assets/bg.jpg" class="header__img" alt="" />
@@ -83,6 +84,18 @@
         </div>
       </div>
     </section>
+    <footer id="footer">
+      <figure class="footer__logo--wrapper">
+        <img src="./assets/logo.png" class="footer__logo--img" alt="">
+      </figure>
+      <ul class="footer__links">
+        <li class="footer__link"><a href="#" class="footer__link--anchor">Home</a></li>
+        <li class="footer__link"><a href="" class="footer__link--anchor no-click">About Us</a></li>
+        <li class="footer__link"><a href="" class="footer__link--anchor no-click">Terms of Service</a></li>
+        <li class="footer__link"><a href="" class="footer__link--anchor no-click">Contact</a></li>
+      </ul>
+      <div class="copyright">© 2024 Game Library</div>
+    </footer>
     <script src="index.js"></script>
   </body>
 </html>
