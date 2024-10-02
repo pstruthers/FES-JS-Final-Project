@@ -1,15 +1,30 @@
 const gameList = document.querySelector(".game-list");
+let page = 2;
+let isLoading = false;
+const apiUrl = "https://api.rawg.io/api/games?key=58ee01e52ce14968a6c26b86c06b3f2b"
 
-async function main() {
-  const games = await fetch(
-    "https://api.rawg.io/api/games?key=58ee01e52ce14968a6c26b86c06b3f2b"
-  );
-  const gamesData = await games.json();
-  const gameResults = gamesData.results;
-  gameList.innerHTML = gameResults.map((game) => gameHTML(game)).join("");
+async function loadFirstPage() {
+  const firstPage = await fetch(apiUrl);
+  const gamesData = await firstPage.json();
+  gameList.innerHTML = gamesData.results.map((game) => gameHTML(game)).join("");
 }
 
-main();
+async function loadGames() {
+  isLoading = true;
+  const response = await fetch(`${apiUrl}&page=${page}`);
+  const gamesData = await response.json();
+  gameList.innerHTML += gamesData.results.map(game => gameHTML(game)).join("");
+  page++;
+  isLoading = false;
+}
+
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !isLoading) {
+    loadGames();
+  }
+});
+
+loadFirstPage();
 
 function gameHTML(game) {
   const gamePlatformsShort = {
@@ -76,7 +91,7 @@ function gameHTML(game) {
   });
 
   let scoreColor = "";
-  if (game.metacritic >= 80) {
+  if (game.metacritic >= 70) {
     scoreColor = "score--green";
   } else if (game.metacritic >= 50) {
     scoreColor = "score--orange";

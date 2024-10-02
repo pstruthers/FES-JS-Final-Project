@@ -405,7 +405,8 @@ FOOTER
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 30vh;
+  height: 300px;
+  position: relative;
 }
 
 .footer__logo--img {
@@ -414,7 +415,7 @@ FOOTER
 
 .footer__links {
   display: flex;
-  margin: 20px 0;
+  margin: 24px 0;
 }
 
 .footer__link {
@@ -432,4 +433,11 @@ FOOTER
 
 .copyright {
   color: white;
+}
+
+.credit {
+  color: white;
+  font-size: 10px;
+  position: absolute;
+  bottom: 10px;
 }
