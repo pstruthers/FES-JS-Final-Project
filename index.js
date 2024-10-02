@@ -19,7 +19,7 @@ async function loadGames() {
   if (page === 1 && searchQuery === "") {
     gameList.innerHTML = "";
   }
-  if (gamesData && gamesData.results.length) {
+  if (gamesData && gamesData.results && gamesData.results.length) {
     gameList.innerHTML += gamesData.results
       .map((game) => gameHTML(game))
       .join("");
@@ -67,6 +67,10 @@ window.addEventListener(
     }
   }, 100)
 );
+
+window.addEventListener("load", () => {
+  window.scrollTo(0, 0);
+})
 
 loadGames();
 
