@@ -1,19 +1,24 @@
 const gameList = document.querySelector(".game-list");
-let page = 2;
+let page = 1;
 let isLoading = false;
+let searchQuery = "";
 const apiUrl =
   "https://api.rawg.io/api/games?key=58ee01e52ce14968a6c26b86c06b3f2b";
 
-async function loadFirstPage() {
-  const firstPage = await fetch(apiUrl);
-  const gamesData = await firstPage.json();
-  gameList.innerHTML = gamesData.results.map((game) => gameHTML(game)).join("");
-}
-
 async function loadGames() {
+  if (isLoading) {
+    return;
+  }
   isLoading = true;
-  const response = await fetch(`${apiUrl}&page=${page}`);
+  let url = searchQuery ? `${apiUrl}&search=${searchQuery}` : apiUrl;
+  if (page > 1) {
+    url += `&page=${page}`;
+  }
+  const response = await fetch(url);
   const gamesData = await response.json();
+  if (page === 1 && searchQuery === "") {
+    gameList.innerHTML = "";
+  }
   if (gamesData && gamesData.results.length) {
     gameList.innerHTML += gamesData.results
       .map((game) => gameHTML(game))
@@ -31,6 +36,26 @@ function debounce(func, delay) {
   };
 }
 
+function searchGames(query) {
+  searchQuery = query;
+  page = 1;
+  gameList.innerHTML = "";
+  loadGames();
+}
+
+document.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const query = event.target
+    .querySelector('input[name="search__input"]')
+    .value.trim();
+  if (query === "") {
+    searchQuery = "";
+    page = 1;
+    gameList.innerHTML = "";
+  }
+  searchGames(query);
+});
+
 window.addEventListener(
   "scroll",
   debounce(() => {
@@ -43,7 +68,7 @@ window.addEventListener(
   }, 100)
 );
 
-loadFirstPage();
+loadGames();
 
 function gameHTML(game) {
   const gamePlatformsShort = {
@@ -74,8 +99,10 @@ function gameHTML(game) {
 
   const platformsGrouped = {};
 
+  const platforms = game.platforms || [];
+
   // Group the platforms by their icon types
-  game.platforms.forEach((platform) => {
+  platforms.forEach((platform) => {
     const platformName = platform.platform.name;
 
     for (const key in gamePlatformsShort) {
@@ -118,7 +145,8 @@ function gameHTML(game) {
     scoreColor = "score--red";
   }
 
-  if (game.metacritic) {
+  
+    if (game.metacritic) {
     return `<div class="game-card">
     <div class="game-card__container">
       <figure class="game__img--wrapper">
