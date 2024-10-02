@@ -1,4 +1,5 @@
 const gameList = document.querySelector(".game-list");
+const titleText = document.querySelector(".games__display--title");
 let page = 1;
 let isLoading = false;
 let searchQuery = "";
@@ -39,6 +40,11 @@ function debounce(func, delay) {
 function searchGames(query) {
   searchQuery = query;
   page = 1;
+  if (query.length > 0) {
+    titleText.innerHTML = `Results for: <span class="green">${query}</span>`;
+  } else {
+    titleText.innerHTML = `All <span class="green">Games:</span>`;
+  }
   gameList.innerHTML = "";
   loadGames();
 }
@@ -70,7 +76,7 @@ window.addEventListener(
 
 window.addEventListener("load", () => {
   window.scrollTo(0, 0);
-})
+});
 
 loadGames();
 
@@ -149,8 +155,7 @@ function gameHTML(game) {
     scoreColor = "score--red";
   }
 
-  
-    if (game.metacritic) {
+  if (game.metacritic) {
     return `<div class="game-card">
     <div class="game-card__container">
       <figure class="game__img--wrapper">
