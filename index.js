@@ -1,7 +1,8 @@
 const gameList = document.querySelector(".game-list");
 let page = 2;
 let isLoading = false;
-const apiUrl = "https://api.rawg.io/api/games?key=58ee01e52ce14968a6c26b86c06b3f2b"
+const apiUrl =
+  "https://api.rawg.io/api/games?key=58ee01e52ce14968a6c26b86c06b3f2b";
 
 async function loadFirstPage() {
   const firstPage = await fetch(apiUrl);
@@ -13,16 +14,34 @@ async function loadGames() {
   isLoading = true;
   const response = await fetch(`${apiUrl}&page=${page}`);
   const gamesData = await response.json();
-  gameList.innerHTML += gamesData.results.map(game => gameHTML(game)).join("");
-  page++;
+  if (gamesData && gamesData.results.length) {
+    gameList.innerHTML += gamesData.results
+      .map((game) => gameHTML(game))
+      .join("");
+    page++;
+  }
   isLoading = false;
 }
 
-window.addEventListener("scroll", () => {
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !isLoading) {
-    loadGames();
-  }
-});
+function debounce(func, delay) {
+  let timeout;
+  return function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, arguments), delay);
+  };
+}
+
+window.addEventListener(
+  "scroll",
+  debounce(() => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
+      !isLoading
+    ) {
+      loadGames();
+    }
+  }, 100)
+);
 
 loadFirstPage();
 
@@ -99,21 +118,40 @@ function gameHTML(game) {
     scoreColor = "score--red";
   }
 
-  return `<div class="game-card">
-            <div class="game-card__container">
-              <figure class="game__img--wrapper">
-                <img src="${game.background_image}" class="game__img" alt="">
-              </figure>
-              <div class="game__info">
-                <h5 class="game__title">${game.name}</h5>
-                <h6 class="game__release-date">${formattedReleaseDate}</h6>
-                <h6 class="game__platforms">${platformIconsHTML}</h6>
-                <div class="genres">
-                  <h6 class="genres__label">Genres:</h6>
-                  <h6 class="game__genres">${gameGenres}</h6>
-                </div>
-                <h6 class="game__score"><span class="${scoreColor}" data-tooltip="Metacritic score">${game.metacritic}</span></h6>
-                </div>
-              </div>
-            </div>`;
+  if (game.metacritic) {
+    return `<div class="game-card">
+    <div class="game-card__container">
+      <figure class="game__img--wrapper">
+        <img src="${game.background_image}" class="game__img" alt="">
+      </figure>
+      <div class="game__info">
+        <h5 class="game__title">${game.name}</h5>
+        <h6 class="game__release-date">${formattedReleaseDate}</h6>
+        <h6 class="game__platforms">${platformIconsHTML}</h6>
+        <div class="genres">
+          <h6 class="genres__label">Genres:</h6>
+          <h6 class="game__genres">${gameGenres}</h6>
+        </div>
+        <h6 class="game__score"><span class="${scoreColor}" data-tooltip="Metacritic score">${game.metacritic}</span></h6>
+        </div>
+      </div>
+    </div>`;
+  } else {
+    return `<div class="game-card">
+    <div class="game-card__container">
+      <figure class="game__img--wrapper">
+        <img src="${game.background_image}" class="game__img" alt="">
+      </figure>
+      <div class="game__info">
+        <h5 class="game__title">${game.name}</h5>
+        <h6 class="game__release-date">${formattedReleaseDate}</h6>
+        <h6 class="game__platforms">${platformIconsHTML}</h6>
+        <div class="genres">
+          <h6 class="genres__label">Genres:</h6>
+          <h6 class="game__genres">${gameGenres}</h6>
+        </div>
+        </div>
+      </div>
+    </div>`;
+  }
 }
