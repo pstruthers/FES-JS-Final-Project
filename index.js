@@ -1,5 +1,6 @@
 const gameList = document.querySelector(".game-list");
 const titleText = document.querySelector(".games__display--title");
+const resultsCount = document.querySelector(".games__count");
 let page = 1;
 let isLoading = false;
 let searchQuery = "";
@@ -17,6 +18,7 @@ async function loadGames() {
   }
   const response = await fetch(url);
   const gamesData = await response.json();
+  resultsCount.innerHTML = `${gamesData.count} results`;
   if (page === 1 && searchQuery === "") {
     gameList.innerHTML = "";
   }

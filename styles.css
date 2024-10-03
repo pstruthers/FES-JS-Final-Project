@@ -241,6 +241,13 @@ GAME LIST
 .games__display--title {
   color: white;
   font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.games__count {
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
   margin-bottom: 48px;
 }
 
