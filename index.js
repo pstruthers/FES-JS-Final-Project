@@ -18,7 +18,7 @@ async function loadGames() {
   }
   const response = await fetch(url);
   const gamesData = await response.json();
-  resultsCount.innerHTML = `${gamesData.count} results`;
+  resultsCount.innerHTML = `${gamesData.count.toLocaleString()} results`;
   if (page === 1 && searchQuery === "") {
     gameList.innerHTML = "";
   }
