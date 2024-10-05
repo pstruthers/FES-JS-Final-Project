@@ -36,7 +36,7 @@ section {
 
 .row {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -199,6 +199,105 @@ HEADER
   cursor: pointer;
 }
 
+/*
+
+FILTERS
+
+*/
+
+.main__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filters__title,
+.filters label {
+  color: white;
+}
+
+.filters__title {
+  margin-bottom: 24px;
+  font-size: 18px;
+}
+
+.filter__title {
+  color: white;
+  font-size: 16px;
+  margin: 8px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.filter__title i {
+  margin-left: 8px;
+  transition: transform 300ms ease;
+}
+
+.filter__title.active i {
+  transform: rotate(180deg);
+}
+
+[type="checkbox"] {
+  display: none;
+}
+
+[type="checkbox"] + label {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 20px;
+  margin: 8px 0;
+}
+
+[type="checkbox"] + label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border: 2px solid white;
+  border-radius: 4px;
+  background: transparent;
+}
+
+[type="checkbox"]:checked + label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #a0ff1d;
+  background: #a0ff1d;
+}
+
+[type="checkbox"]:checked + label::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border-bottom: 4px solid #1f1f1f;
+  border-right: 4px solid #1f1f1f;
+  transform: rotate(45deg);
+}
+
+.filter__content {
+  height: 0;
+  overflow: hidden;
+  transition: height 300ms ease;
+  margin-left: 12px;
+}
+
+.filter__content.expanded {
+  height: auto;
+  margin-left: 12px;
+}
+
 /* 
 
 GAME LIST 
@@ -242,6 +341,7 @@ GAME LIST
   color: white;
   font-size: 30px;
   margin-bottom: 8px;
+  margin-left: 50px;
 }
 
 .games__count {
@@ -249,6 +349,7 @@ GAME LIST
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 48px;
+  margin-left: 50px;
 }
 
 .game-list {
@@ -280,6 +381,7 @@ GAME LIST
   margin-bottom: 48px;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
 }
 
 .game__img--wrapper {

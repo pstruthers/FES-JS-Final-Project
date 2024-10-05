@@ -1,11 +1,27 @@
 const gameList = document.querySelector(".game-list");
 const titleText = document.querySelector(".games__display--title");
 const resultsCount = document.querySelector(".games__count");
+const filterTitles = document.querySelectorAll(".filter__title");
 let page = 1;
 let isLoading = false;
 let searchQuery = "";
 const apiUrl =
   "https://api.rawg.io/api/games?key=58ee01e52ce14968a6c26b86c06b3f2b";
+
+filterTitles.forEach(title => {
+  title.addEventListener("click", () => {
+    const filterContent = document.getElementById(title.dataset.toggle);
+    if (!filterContent.classList.contains("expanded")) {
+      filterContent.style.height = `${filterContent.scrollHeight}px`;
+      filterContent.classList.add("expanded");
+      title.classList.add("active");
+    } else {
+      filterContent.style.height = "0px";
+      filterContent.classList.remove("expanded");
+      title.classList.remove("active");
+    }
+  })
+})
 
 async function loadGames() {
   if (isLoading) {
