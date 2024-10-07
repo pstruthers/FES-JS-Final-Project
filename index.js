@@ -5,6 +5,12 @@ const filterTitles = document.querySelectorAll(".filter__title");
 let page = 1;
 let isLoading = false;
 let searchQuery = "";
+let filters = {
+  releaseYears: [],
+  platforms: [],
+  genres: []
+};
+let platformsList = [];
 const apiUrl =
   "https://api.rawg.io/api/games?key=58ee01e52ce14968a6c26b86c06b3f2b";
 
@@ -20,8 +26,58 @@ filterTitles.forEach(title => {
       filterContent.classList.remove("expanded");
       title.classList.remove("active");
     }
-  })
-})
+  });
+});
+
+document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+  checkbox.addEventListener("change", () => {
+    updateFilters();
+    page = 1;
+    gameList.innerHTML = "";
+    loadGames();
+  });
+});
+
+function updateFilters() {
+  filters.releaseYears = Array.from(document.querySelectorAll('input[name="release-year"]:checked')).map(cb => {
+    const [startYear, endYear] = cb.value.split("-");
+    if (!startYear) {
+      return { startYear: 1800, endYear: parseInt(endYear, 10) };
+    }
+    if (!endYear) {
+      return { startYear: parseInt(startYear, 10), endYear: 2099 };
+    }
+    return { startYear: parseInt(startYear, 10), endYear: parseInt(endYear, 10) };
+  });
+  filters.platforms = Array.from(document.querySelectorAll('input[name="platforms"]:checked')).map(cb => cb.id);
+  filters.genres = Array.from(document.querySelectorAll('input[name="genres"]:checked')).map(cb => cb.id);
+}
+
+function buildFilterQuery() {
+  let query = "";
+  if (filters.releaseYears.length > 0) {
+    const startYear = Math.min(...filters.releaseYears.map(range => range.startYear || 1800));
+    const endYear = Math.max(...filters.releaseYears.map(range => range.endYear || 2099));
+    console.log(startYear, endYear);
+    query += `&dates=${startYear}-01-01,${endYear}-12-31`;
+  }
+  if (filters.platforms.length > 0) {
+    const platformIds = filters.platforms.map(platformName => getPlatformId(platformName)).filter(id => id);
+    if (platformIds.length > 0) {
+      query += `&platforms=${platformIds.join(",")}`;
+    }
+  }
+  if (filters.genres.length > 0) {
+    query += `&genres=${filters.genres.join(",")}`;
+  }
+  return query;
+}
+
+async function fetchPlatforms() {
+  const response = await fetch(`https://api.rawg.io/api/platforms?key=58ee01e52ce14968a6c26b86c06b3f2b`);
+  const platformData = await response.json();
+  return platformData.results;
+}
 
 async function loadGames() {
   if (isLoading) {
@@ -31,6 +87,10 @@ async function loadGames() {
   let url = searchQuery ? `${apiUrl}&search=${searchQuery}` : apiUrl;
   if (page > 1) {
     url += `&page=${page}`;
+  }
+  const filterQuery = buildFilterQuery();
+  if (filterQuery) {
+    url += filterQuery;
   }
   const response = await fetch(url);
   const gamesData = await response.json();
@@ -92,9 +152,15 @@ window.addEventListener(
   }, 100)
 );
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   window.scrollTo(0, 0);
+  platformsList = await fetchPlatforms();
 });
+
+function getPlatformId(platformName) {
+  const platform = platformsList.find(p => p.name === platformName);
+  return platform ? platform.id : null;
+}
 
 loadGames();
 
@@ -124,6 +190,10 @@ function gameHTML(game) {
     Android: `<i class="fa-brands fa-android"></i>`,
     "Nintendo Switch": `<i class="fa-solid fa-n"></i>`,
   };
+
+  if (game.released !== null) {
+    console.log(game);
+  }
 
   const platformsGrouped = {};
 

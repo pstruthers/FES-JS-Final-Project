@@ -36,7 +36,7 @@ section {
 
 .row {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -210,12 +210,17 @@ FILTERS
   justify-content: space-between;
 }
 
+.filters__container {
+  padding: 0 64px;
+}
+
 .filters__title,
 .filters label {
   color: white;
 }
 
 .filters__title {
+  margin-top: 110px;
   margin-bottom: 24px;
   font-size: 18px;
 }
@@ -341,7 +346,6 @@ GAME LIST
   color: white;
   font-size: 30px;
   margin-bottom: 8px;
-  margin-left: 50px;
 }
 
 .games__count {
@@ -349,7 +353,6 @@ GAME LIST
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 48px;
-  margin-left: 50px;
 }
 
 .game-list {
@@ -381,7 +384,6 @@ GAME LIST
   margin-bottom: 48px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
 }
 
 .game__img--wrapper {
@@ -418,6 +420,10 @@ GAME LIST
 
 .game__platforms {
   font-size: 16px;
+}
+
+.genres__label {
+  padding-right: 32px;
 }
 
 .genres__label,
