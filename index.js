@@ -3,6 +3,9 @@ const titleText = document.querySelector(".games__display--title");
 const resultsCount = document.querySelector(".games__count");
 const filterTitles = document.querySelectorAll(".filter__title");
 const clearFiltersBtn = document.querySelector(".clear-filters__btn");
+const searchForm = document.getElementById("search-form");
+const searchInput = document.getElementById("search-input");
+const clearSearchBtn = document.querySelector(".clear-search__btn");
 let page = 1;
 let isLoading = false;
 let searchQuery = "";
@@ -14,6 +17,22 @@ let filters = {
 let platformsList = [];
 const apiUrl =
   "https://api.rawg.io/api/games?key=58ee01e52ce14968a6c26b86c06b3f2b";
+
+searchInput.addEventListener("input", () => {
+  clearSearchBtn.style.display =
+    searchInput.value.length > 0 ? "block" : "none";
+});
+
+clearSearchBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  searchInput.value = "";
+  clearSearchBtn.style.display = "none";
+  searchInput.focus();
+});
+
+searchForm.addEventListener("submit", () => {
+  searchInput.blur();
+});
 
 filterTitles.forEach((title) => {
   title.addEventListener("click", () => {
