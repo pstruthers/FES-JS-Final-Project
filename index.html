@@ -61,7 +61,10 @@
         <div class="row">
           <div class="main__container">
             <div class="filters__container">
-              <h4 class="filters__title"><span class="green">Filters:</span></h4>
+              <div class="filters__title--container">
+                <h4 class="filters__title"><span class="green">Filters:</span></h4>
+                <button class="clear-filters__btn">Clear</button>
+              </div>
               <div class="filters">
                 <div class="filter">
                   <h5 class="filter__title" data-toggle="release-year">
@@ -70,22 +73,23 @@
                   <div class="filter__content" id="release-year">
                     <input
                       type="checkbox"
+                      class="filter-checkbox"
                       id="to-1999"
                       name="release-year"
                       value="to-1999"
                     />
                     <label for="to-1999">&lt; 2000</label><br />
-                    <input type="checkbox" id="2000-2004" name="release-year" value="2000-2004"/>
+                    <input type="checkbox" class="filter-checkbox" id="2000-2004" name="release-year" value="2000-2004"/>
                     <label for="2000-2004">2000-2004</label><br />
-                    <input type="checkbox" id="2005-2009" name="release-year"  value="2005-2009"/>
+                    <input type="checkbox" class="filter-checkbox" id="2005-2009" name="release-year"  value="2005-2009"/>
                     <label for="2005-2009">2005-2009</label><br />
-                    <input type="checkbox" id="2010-2014" name="release-year"  value="2010-2014"/>
+                    <input type="checkbox" class="filter-checkbox" id="2010-2014" name="release-year"  value="2010-2014"/>
                     <label for="2010-2014">2010-2014</label><br />
-                    <input type="checkbox" id="2015-2019" name="release-year"  value="2015-2019"/>
+                    <input type="checkbox" class="filter-checkbox" id="2015-2019" name="release-year"  value="2015-2019"/>
                     <label for="2015-2019">2015-2019</label><br />
-                    <input type="checkbox" id="2020-2024" name="release-year"  value="2020-2024"/>
+                    <input type="checkbox" class="filter-checkbox" id="2020-2024" name="release-year"  value="2020-2024"/>
                     <label for="2020-2024">2020-2024</label><br />
-                    <input type="checkbox" id="2025-on" name="release-year"  value="2025-on"/>
+                    <input type="checkbox" class="filter-checkbox" id="2025-on" name="release-year"  value="2025-on"/>
                     <label for="2025-on">&gt; 2024</label><br />
                   </div>
                 </div>
@@ -93,83 +97,13 @@
                   <h5 class="filter__title" data-toggle="platform">
                     Platform <i class="fa-solid fa-chevron-down"></i>
                   </h5>
-                  <div class="filter__content" id="platform">
-                    <input type="checkbox" id="Android" name="platforms" />
-                    <label for="Android">Android</label><br />
-                    <input type="checkbox" id="iOS" name="platforms" />
-                    <label for="iOS">iOS</label><br />
-                    <input type="checkbox" id="macOS" name="platforms" />
-                    <label for="macOS">macOS</label><br />
-                    <input
-                      type="checkbox"
-                      id="Nintendo Switch"
-                      name="platforms"
-                    />
-                    <label for="Nintendo Switch">Nintendo Switch</label><br />
-                    <input type="checkbox" id="PC" name="platforms" />
-                    <label for="PC">PC</label><br />
-                    <input type="checkbox" id="PlayStation" name="platforms" />
-                    <label for="PlayStation">PlayStation 1</label><br />
-                    <input type="checkbox" id="PlayStation 2" name="platforms" />
-                    <label for="PlayStation 2">PlayStation 2</label><br />
-                    <input type="checkbox" id="PlayStation 3" name="platforms" />
-                    <label for="PlayStation 3">PlayStation 3</label><br />
-                    <input type="checkbox" id="PlayStation 4" name="platforms" />
-                    <label for="PlayStation 4">PlayStation 4</label><br />
-                    <input type="checkbox" id="PlayStation 5" name="platforms" />
-                    <label for="PlayStation 5">PlayStation 5</label><br />
-                    <input type="checkbox" id="Xbox" name="platforms" />
-                    <label for="Xbox">Xbox</label><br />
-                    <input type="checkbox" id="Xbox 360" name="platforms" />
-                    <label for="Xbox 360">Xbox 360</label><br />
-                    <input type="checkbox" id="Xbox One" name="platforms" />
-                    <label for="Xbox One">Xbox One</label><br />
-                    <input type="checkbox" id="Xbox Series S/X" name="platforms" />
-                    <label for="Xbox Series S/X">Xbox Series S/X</label><br />
-                  </div>
+                  <div class="filter__content" id="platform"></div>
                 </div>
                 <div class="filter">
                   <h5 class="filter__title" data-toggle="genre">
                     Genre <i class="fa-solid fa-chevron-down"></i>
                   </h5>
-                  <div class="filter__content" id="genre">
-                    <input type="checkbox" id="action" name="genres" />
-                    <label for="action">Action</label><br />
-                    <input type="checkbox" id="adventure" name="genres" />
-                    <label for="adventure">Adventure</label><br />
-                    <input type="checkbox" id="arcade" name="genres" />
-                    <label for="arcade">Arcade</label><br />
-                    <input type="checkbox" id="casual" name="genres" />
-                    <label for="casual">Casual</label><br />
-                    <input type="checkbox" id="family" name="genres" />
-                    <label for="family">Family</label><br />
-                    <input type="checkbox" id="fighting" name="genres" />
-                    <label for="fighting">Fighting</label><br />
-                    <input type="checkbox" id="indie" name="genres" />
-                    <label for="indie">Indie</label><br />
-                    <input
-                      type="checkbox"
-                      id="massively-multiplayer"
-                      name="genres"
-                    />
-                    <label for="massively-multiplayer"
-                      >Massively Multiplayer</label
-                    ><br />
-                    <input type="checkbox" id="puzzle" name="genres" />
-                    <label for="puzzle">Puzzle</label><br />
-                    <input type="checkbox" id="racing" name="genres" />
-                    <label for="racing">Racing</label><br />
-                    <input type="checkbox" id="rpg" name="genres" />
-                    <label for="rpg">RPG</label><br />
-                    <input type="checkbox" id="shooter" name="genres" />
-                    <label for="shooter">Shooter</label><br />
-                    <input type="checkbox" id="simulation" name="genres" />
-                    <label for="simulation">Simulation</label><br />
-                    <input type="checkbox" id="sports" name="genres" />
-                    <label for="sports">Sports</label><br />
-                    <input type="checkbox" id="strategy" name="genres" />
-                    <label for="strategy">Strategy</label>
-                  </div>
+                  <div class="filter__content" id="genre"></div>
                 </div>
               </div>
             </div>

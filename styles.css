@@ -214,6 +214,10 @@ FILTERS
   padding: 0 64px;
 }
 
+.filters__title--container {
+  display: flex;
+}
+
 .filters__title,
 .filters label {
   color: white;
@@ -221,7 +225,7 @@ FILTERS
 
 .filters__title {
   margin-top: 110px;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
   font-size: 18px;
 }
 
@@ -241,6 +245,21 @@ FILTERS
 
 .filter__title.active i {
   transform: rotate(180deg);
+}
+
+.clear-filters__btn {
+  background: transparent;
+  border: none;
+  color: #fc4242;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  margin: 110px 0 8px 32px;
+  transition: all 300ms ease;
+}
+
+.clear-filters__btn:hover {
+  cursor: pointer;
+  filter: brightness(80%);
 }
 
 [type="checkbox"] {
@@ -416,6 +435,27 @@ GAME LIST
 
 .game__release-date {
   font-size: 14px;
+}
+
+.platform-logo__svg {
+  height: 16px;
+  fill: #bbb;
+  margin-right: 12px;
+  vertical-align: -2px;
+}
+
+.platform-logo__svg:hover {
+  fill: white;
+  transition: all 300ms ease;
+}
+
+.platform-logo__path {
+  fill: #bbb;
+  transition: all 300ms ease;
+}
+
+.platform-logo__svg:hover .platform-logo__path {
+  fill: white;
 }
 
 .game__platforms {
