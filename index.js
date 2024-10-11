@@ -6,8 +6,11 @@ const clearFiltersBtn = document.querySelector(".clear-filters__btn");
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
 const clearSearchBtn = document.querySelector(".clear-search__btn");
+const sortBtn = document.getElementById("sort-filter");
+const dropdownMenu = document.querySelector(".dropdown-content");
 let page = 1;
 let isLoading = false;
+let allGames = [];
 let searchQuery = "";
 let filters = {
   releaseYears: [],
@@ -34,6 +37,25 @@ searchForm.addEventListener("submit", () => {
   searchInput.blur();
 });
 
+sortBtn.addEventListener("click", function() {
+  dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+  if (dropdownMenu.style.display === "block") {
+    sortBtn.style.borderBottomLeftRadius = "0px";
+    sortBtn.style.borderBottomRightRadius = "0px";
+  } else {
+    sortBtn.style.borderBottomLeftRadius = "5px";
+    sortBtn.style.borderBottomRightRadius = "5px";
+  }
+});
+
+document.addEventListener("click", function(event) {
+  if (!sortBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+    dropdownMenu.style.display = "none";
+    sortBtn.style.borderBottomLeftRadius = "5px";
+    sortBtn.style.borderBottomRightRadius = "5px";
+  }
+});
+
 filterTitles.forEach((title) => {
   title.addEventListener("click", () => {
     const filterContent = document.getElementById(title.dataset.toggle);
@@ -53,6 +75,7 @@ document.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
   checkbox.addEventListener("change", () => {
     updateFilters();
     page = 1;
+    allGames = [];
     gameList.innerHTML = "";
     loadGames();
   });
@@ -77,58 +100,39 @@ async function fetchGenres() {
 async function populateFilters() {
   const platforms = await fetchPlatforms();
   const genres = await fetchGenres();
-  const platformFilterContainer = document.getElementById("platform");
-  const genreFilterContainer = document.getElementById("genre");
-  platforms.sort((a, b) => a.name.localeCompare(b.name));
-  genres.sort((a, b) => a.name.localeCompare(b.name));
-  platforms.forEach((platform) => {
-    const platformCheckbox = document.createElement("input");
-    platformCheckbox.type = "checkbox";
-    platformCheckbox.classList.add("filter-checkbox");
-    platformCheckbox.id = platform.name;
-    platformCheckbox.value = platform.id;
-    platformCheckbox.name = "platforms";
-    platformCheckbox.addEventListener("change", () => {
+  addFiltersToContainer(platforms, "platform", "platforms");
+  addFiltersToContainer(genres, "genre", "genres");
+}
+
+function addFiltersToContainer(filterData, filterType, nameAttr) {
+  const filterContainer = document.getElementById(filterType);
+  filterData.sort((a, b) => a.name.localeCompare(b.name));
+  filterData.forEach(filterItem => {
+    const filterCheckbox = document.createElement("input");
+    filterCheckbox.type = "checkbox";
+    filterCheckbox.classList.add("filter-checkbox");
+    filterCheckbox.id = filterItem.name;
+    filterCheckbox.value = filterItem.id;
+    filterCheckbox.name = nameAttr;
+    filterCheckbox.addEventListener("change", () => {
       updateFilters();
       page = 1;
       gameList.innerHTML = "";
       loadGames();
     });
-    const platformLabel = document.createElement("label");
-    platformLabel.htmlFor = platform.name;
-    if (platform.name === "PlayStation") {
-      platformLabel.textContent = "PlayStation 1";
+    const filterLabel = document.createElement("label");
+    filterLabel.htmlFor = filterItem.name;
+    if (filterItem.name === "PlayStation") {
+      filterLabel.textContent = "PlayStation 1";
     } else {
-      platformLabel.textContent = platform.name;
+      filterLabel.textContent = filterItem.name;
     }
-    const platformFilterItem = document.createElement("div");
-    platformFilterItem.classList.add("filter-item");
-    platformFilterItem.appendChild(platformCheckbox);
-    platformFilterItem.appendChild(platformLabel);
-    platformFilterContainer.appendChild(platformFilterItem);
-  });
-  genres.forEach((genre) => {
-    const genreCheckbox = document.createElement("input");
-    genreCheckbox.type = "checkbox";
-    genreCheckbox.classList.add("filter-checkbox");
-    genreCheckbox.id = genre.name;
-    genreCheckbox.value = genre.id;
-    genreCheckbox.name = "genres";
-    genreCheckbox.addEventListener("change", () => {
-      updateFilters();
-      page = 1;
-      gameList.innerHTML = "";
-      loadGames();
-    });
-    const genreLabel = document.createElement("label");
-    genreLabel.htmlFor = genre.name;
-    genreLabel.textContent = genre.name;
-    const genreFilterItem = document.createElement("div");
-    genreFilterItem.classList.add("filter-item");
-    genreFilterItem.appendChild(genreCheckbox);
-    genreFilterItem.appendChild(genreLabel);
-    genreFilterContainer.appendChild(genreFilterItem);
-  });
+    const filterItemElement = document.createElement("div");
+    filterItemElement.classList.add("filter-item");
+    filterItemElement.appendChild(filterCheckbox);
+    filterItemElement.appendChild(filterLabel);
+    filterContainer.appendChild(filterItemElement);
+  })
 }
 
 clearFiltersBtn.addEventListener("click", () => {
@@ -185,6 +189,21 @@ function buildFilterQuery() {
   return query;
 }
 
+document.querySelectorAll(".dropdown-content div").forEach(option => {
+  option.addEventListener("click", function() {
+    const selectedSort = this.getAttribute("value");
+    sortBtn.setAttribute("data-selected", selectedSort);
+    const sortType = this.textContent;
+    sortBtn.innerHTML = `${sortType} <i id="sort-arrow" class="fa-solid fa-chevron-down"></i>`;
+    sortBtn.style.borderBottomLeftRadius = "5px";
+    sortBtn.style.borderBottomRightRadius = "5px";
+    dropdownMenu.style.display = "none";
+    page = 1;
+    gameList.innerHTML = "";
+    loadGames();
+  });
+});
+
 async function loadGames() {
   if (isLoading) {
     return;
@@ -200,17 +219,42 @@ async function loadGames() {
   }
   const response = await fetch(url);
   const gamesData = await response.json();
+  console.log(gamesData)
   resultsCount.innerHTML = `${gamesData.count.toLocaleString()} results`;
   if (page === 1 && searchQuery === "") {
     gameList.innerHTML = "";
+    allGames = [];
   }
   if (gamesData && gamesData.results && gamesData.results.length) {
-    gameList.innerHTML += gamesData.results
-      .map((game) => gameHTML(game))
-      .join("");
+    gamesData.results.forEach(game => {
+      if (!allGames.some(existingGame => existingGame.id === game.id)) {
+        allGames.push(game);
+      }
+    });
+    const sortedGames = sortGames(allGames);
+    const gameHTMLs = sortedGames.map(game => gameHTML(game));
+    gameList.innerHTML = gameHTMLs.join("");
     page++;
   }
   isLoading = false;
+}
+
+function sortGames(allGames) {
+  const selectedSort = sortBtn.getAttribute("data-selected");
+  return allGames.sort((a, b) => {
+    if (selectedSort === "ALPHA_A_TO_Z") {
+      return a.name.toUpperCase().localeCompare(b.name.toUpperCase());
+    } else if (selectedSort === "ALPHA_Z_TO_A") {
+      return b.name.toUpperCase().localeCompare(a.name.toUpperCase());
+    } else if (selectedSort === "DATE_DESC") {
+      return new Date(a.released) - new Date(b.released);
+    } else if (selectedSort === "DATE_ASC") {
+      return new Date(b.released) - new Date(a.released);
+    } else if (selectedSort === "SCORE") {
+      return b.metacritic - a.metacritic;
+    }
+    return 0;
+  });
 }
 
 function debounce(func, delay) {
@@ -224,6 +268,7 @@ function debounce(func, delay) {
 function searchGames(query) {
   searchQuery = query;
   page = 1;
+  allGames = [];
   if (query.length > 0) {
     titleText.innerHTML = `Results for: <span class="green">${query}</span>`;
   } else {

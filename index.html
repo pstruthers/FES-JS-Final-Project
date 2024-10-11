@@ -111,10 +111,24 @@
               </div>
             </div>
             <div class="games__display--container">
-              <h2 class="games__display--title">
-                All <span class="green">Games:</span>
-              </h2>
-              <h6 class="games__count"></h6>
+              <div class="game-list__header">
+                <div class="game-list__header--title">
+                  <h2 class="games__display--title">
+                    All <span class="green">Games:</span>
+                  </h2>
+                  <h6 class="games__count"></h6>
+                </div>
+                <div class="custom-dropdown">
+                  <button id="sort-filter">Sort <i id="sort-arrow" class="fa-solid fa-chevron-down"></i></button>
+                  <div class="dropdown-content">
+                    <div value="ALPHA_A_TO_Z">Alphabetical (A-Z)</div>
+                    <div value="ALPHA_Z_TO_A">Alphabetical (Z-A)</div>
+                    <div value="DATE_DESC">Release Date (Desc.)</div>
+                    <div value="DATE_ASC">Release Date (Asc.)</div>
+                    <div value="SCORE">Score</div>
+                  </div>
+                </div>
+              </div>
               <div class="game-list">
                 <div class="game">
                   <div class="game-card">
