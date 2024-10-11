@@ -209,6 +209,7 @@ async function loadGames() {
     return;
   }
   isLoading = true;
+  showSpinner();
   let url = searchQuery ? `${apiUrl}&search=${searchQuery}` : apiUrl;
   if (page > 1) {
     url += `&page=${page}`;
@@ -236,6 +237,7 @@ async function loadGames() {
     gameList.innerHTML = gameHTMLs.join("");
     page++;
   }
+  hideSpinner();
   isLoading = false;
 }
 
@@ -312,6 +314,21 @@ window.addEventListener("load", async () => {
 function getPlatformId(platformName) {
   const platform = platformsList.find((p) => p.name === platformName);
   return platform ? platform.id : null;
+}
+
+function showSpinner() {
+  const spinner = document.createElement("div");
+  spinner.id = "spinner";
+  spinner.classList.add("loading-state");
+  spinner.innerHTML = `<i class="fa-solid fa-circle-notch"></i>`;
+  gameList.appendChild(spinner);
+}
+
+function hideSpinner() {
+  const spinner = document.getElementById("spinner");
+  if (spinner) {
+    spinner.remove();
+  }
 }
 
 loadGames();

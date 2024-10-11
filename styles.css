@@ -51,6 +51,26 @@ section {
   cursor: not-allowed;
 }
 
+.loading-state {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 36px;
+  color: white;
+  z-index: 100;
+  animation: rotate 800ms infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* 
 
 NAVIGATION 
@@ -446,6 +466,7 @@ GAME LIST
 .game-list {
   display: flex;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .game-card__container {
