@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Catalog</title>
+    <title>Game Library</title>
     <link rel="stylesheet" href="styles.css" />
     <script
       src="https://kit.fontawesome.com/7b96a85829.js"
@@ -32,6 +32,25 @@
               >
             </li>
           </ul>
+          <button class="nav__menu nav__menu--open" onclick="openLinksMenu()">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="nav__menu--backdrop">
+            <button class="nav__menu nav__menu--close" onclick="closeLinksMenu()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <ul class="nav__menu--list">
+              <li class="nav__menu--links">
+                <a href="#" class="nav__menu--link" onclick="closeLinksMenu()">Home</a>
+              </li>
+              <li class="nav__menu--links">
+                <a href="" class="nav__menu--link no-click" onclick="closeLinksMenu()">My Library</a>
+              </li>
+              <li class="nav__menu--links">
+                <a href="" class="nav__menu--link no-click" onclick="closeLinksMenu()">Profile</a>
+              </li>
+            </ul>
+          </div>
         </nav>
       </div>
       <header id="header">
@@ -158,15 +177,16 @@
                 </div>
                 <div class="custom-dropdown">
                   <button id="sort-filter">
-                    Sort
+                    Sort by
                     <i id="sort-arrow" class="fa-solid fa-chevron-down"></i>
                   </button>
                   <div class="dropdown-content">
+                    <div value="DEFAULT">Default</div>
                     <div value="ALPHA_A_TO_Z">Alphabetical (A-Z)</div>
                     <div value="ALPHA_Z_TO_A">Alphabetical (Z-A)</div>
-                    <div value="DATE_DESC">Release Date (Desc.)</div>
-                    <div value="DATE_ASC">Release Date (Asc.)</div>
-                    <div value="SCORE">Score</div>
+                    <div value="DATE_DESC">Release Date (Old-New)</div>
+                    <div value="DATE_ASC">Release Date (New-Old)</div>
+                    <div value="SCORE">Score (High-Low)</div>
                   </div>
                 </div>
               </div>

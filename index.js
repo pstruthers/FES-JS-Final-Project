@@ -331,6 +331,14 @@ function hideSpinner() {
   }
 }
 
+function openLinksMenu() {
+  document.body.classList += " links-menu--open";
+}
+
+function closeLinksMenu() {
+  document.body.classList.remove("links-menu--open");
+}
+
 loadGames();
 
 function gameHTML(game) {
