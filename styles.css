@@ -258,6 +258,9 @@ HEADER
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header__title {
@@ -275,16 +278,16 @@ HEADER
 
 .search-bar {
   position: relative;
+  width: 100%;
+  max-width: 400px;
 }
 
 .search-bar input {
   border-radius: 30px;
   width: 100%;
-  max-width: 400px;
   height: 50px;
-  padding-left: 50px;
+  padding: 0 2.8rem;
   font-size: 18px;
-  position: relative;
   border: none;
   box-shadow: 5px 10px 10px 0 rgba(0, 0, 0, 0.8);
 }
@@ -305,13 +308,13 @@ HEADER
 
 .search__btn {
   font-size: 20px;
-  left: 15%;
+  left: 1rem;
 }
 
 .clear-search__btn {
   display: none;
   font-size: 28px;
-  right: 16%;
+  right: 1rem;
 }
 
 .clear-search__btn:hover {
@@ -780,12 +783,48 @@ RESPONSIVENESS
 
 */
 
+@media (max-width: 1280px) {
+  .header__title {
+    font-size: 44px;
+  }
+  .header__description {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header__title {
+    font-size: 40px;
+  }
+  .header__description {
+    font-size: 18px;
+  }
+  .search-bar input {
+    height: 44px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header__title {
+    font-size: 36px;
+  }
+  .search-bar {
+    max-width: 350px;
+  }
+  .search-bar input::placeholder {
+    content: "Search...";
+  }
+}
+
 @media (max-width: 480px) {
   .nav__menu {
     display: block;
   }
-
   .nav__link--list {
     display: none;
+  }
+  .header__title {
+    font-size: 32px;
   }
 }

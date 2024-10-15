@@ -311,6 +311,17 @@ window.addEventListener("load", async () => {
   populateFilters();
 });
 
+window.addEventListener('resize', function() {
+  const searchInput = document.getElementById('search-input');
+  if (window.innerWidth <= 580) {
+    searchInput.placeholder = 'Search...';
+  } else {
+    searchInput.placeholder = 'Search by game title...';
+  }
+});
+window.dispatchEvent(new Event('resize'));
+
+
 function getPlatformId(platformName) {
   const platform = platformsList.find((p) => p.name === platformName);
   return platform ? platform.id : null;
