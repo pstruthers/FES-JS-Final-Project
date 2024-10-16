@@ -741,7 +741,10 @@ FOOTER
   align-items: center;
   justify-content: center;
   height: 300px;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 .footer__logo--img {
@@ -755,6 +758,7 @@ FOOTER
 
 .footer__link {
   padding: 0 24px;
+  text-align: center;
 }
 
 .footer__link--anchor {
@@ -812,8 +816,11 @@ RESPONSIVENESS
   .search-bar {
     max-width: 350px;
   }
-  .search-bar input::placeholder {
-    content: "Search...";
+  .footer__logo--img {
+    width: 120px;
+  }
+  .footer__link--anchor {
+    font-size: 14px;
   }
 }
 
