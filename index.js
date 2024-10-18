@@ -1,4 +1,8 @@
 const gameList = document.querySelector(".game-list");
+const gameListHeader = document.querySelector(".game-list__header")
+const filtersContainer = document.querySelector(".filters__container");
+const mainContainer = document.querySelector(".main__container");
+const gamesDisplayContainer = document.querySelector(".games__display--container");
 const titleText = document.querySelector(".games__display--title");
 const resultsCount = document.querySelector(".games__count");
 const filterTitles = document.querySelectorAll(".filter__title");
@@ -314,8 +318,11 @@ window.addEventListener("load", async () => {
 window.addEventListener('resize', function() {
   if (window.innerWidth <= 580) {
     searchInput.placeholder = 'Search...';
+    gameListHeader.parentNode.insertBefore(filtersContainer, gameListHeader.nextSibling);
   } else {
     searchInput.placeholder = 'Search by game title...';
+    gameListHeader.parentNode.removeChild(filtersContainer);
+    mainContainer.insertBefore(filtersContainer, gamesDisplayContainer);
   }
 });
 window.dispatchEvent(new Event('resize'));
