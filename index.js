@@ -121,6 +121,7 @@ function addFiltersToContainer(filterData, filterType, nameAttr) {
     filterCheckbox.addEventListener("change", () => {
       updateFilters();
       page = 1;
+      allGames = [];
       gameList.innerHTML = "";
       loadGames();
     });
@@ -181,7 +182,6 @@ function buildFilterQuery() {
     const endYear = Math.max(
       ...filters.releaseYears.map((range) => range.endYear || 2099)
     );
-    console.log(startYear, endYear);
     query += `&dates=${startYear}-01-01,${endYear}-12-31`;
   }
   if (filters.platforms.length > 0) {
@@ -215,16 +215,15 @@ async function loadGames() {
   isLoading = true;
   showSpinner();
   let url = searchQuery ? `${apiUrl}&search=${searchQuery}` : apiUrl;
-  if (page > 1) {
-    url += `&page=${page}`;
-  }
   const filterQuery = buildFilterQuery();
   if (filterQuery) {
     url += filterQuery;
   }
+  if (page > 1) {
+    url += `&page=${page}`;
+  }
   const response = await fetch(url);
   const gamesData = await response.json();
-  console.log(gamesData)
   resultsCount.innerHTML = `${gamesData.count.toLocaleString()} results`;
   if (page === 1 && searchQuery === "") {
     gameList.innerHTML = "";
