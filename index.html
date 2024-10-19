@@ -36,12 +36,17 @@
             <i class="fa-solid fa-bars"></i>
           </button>
           <div class="nav__menu--backdrop">
-            <button class="nav__menu nav__menu--close" onclick="closeLinksMenu()">
+            <button
+              class="nav__menu nav__menu--close"
+              onclick="closeLinksMenu()"
+            >
               <i class="fa-solid fa-xmark"></i>
             </button>
             <ul class="nav__menu--list">
               <li class="nav__menu--links">
-                <a href="#" class="nav__menu--link" onclick="closeLinksMenu()">Home</a>
+                <a href="#" class="nav__menu--link" onclick="closeLinksMenu()"
+                  >Home</a
+                >
               </li>
               <li class="nav__menu--links">
                 <a class="nav__menu--link no-click">My Library</a>
@@ -82,91 +87,6 @@
       <div class="container">
         <div class="row">
           <div class="main__container">
-            <div class="filters__container">
-              <div class="filters__title--container">
-                <h4 class="filters__title">
-                  <span class="green">Filters:</span>
-                </h4>
-                <button class="clear-filters__btn">Clear</button>
-              </div>
-              <div class="filters">
-                <div class="filter">
-                  <h5 class="filter__title" data-toggle="release-year">
-                    Release Year <i class="fa-solid fa-chevron-down"></i>
-                  </h5>
-                  <div class="filter__content" id="release-year">
-                    <input
-                      type="checkbox"
-                      class="filter-checkbox"
-                      id="to-1999"
-                      name="release-year"
-                      value="to-1999"
-                    />
-                    <label for="to-1999">&lt; 2000</label><br />
-                    <input
-                      type="checkbox"
-                      class="filter-checkbox"
-                      id="2000-2004"
-                      name="release-year"
-                      value="2000-2004"
-                    />
-                    <label for="2000-2004">2000-2004</label><br />
-                    <input
-                      type="checkbox"
-                      class="filter-checkbox"
-                      id="2005-2009"
-                      name="release-year"
-                      value="2005-2009"
-                    />
-                    <label for="2005-2009">2005-2009</label><br />
-                    <input
-                      type="checkbox"
-                      class="filter-checkbox"
-                      id="2010-2014"
-                      name="release-year"
-                      value="2010-2014"
-                    />
-                    <label for="2010-2014">2010-2014</label><br />
-                    <input
-                      type="checkbox"
-                      class="filter-checkbox"
-                      id="2015-2019"
-                      name="release-year"
-                      value="2015-2019"
-                    />
-                    <label for="2015-2019">2015-2019</label><br />
-                    <input
-                      type="checkbox"
-                      class="filter-checkbox"
-                      id="2020-2024"
-                      name="release-year"
-                      value="2020-2024"
-                    />
-                    <label for="2020-2024">2020-2024</label><br />
-                    <input
-                      type="checkbox"
-                      class="filter-checkbox"
-                      id="2025-on"
-                      name="release-year"
-                      value="2025-on"
-                    />
-                    <label for="2025-on">&gt; 2024</label><br />
-                  </div>
-                </div>
-                <div class="filter">
-                  <h5 class="filter__title" data-toggle="platform">
-                    Platform <i class="fa-solid fa-chevron-down"></i>
-                  </h5>
-                  <div class="filter__content" id="platform"></div>
-                </div>
-                <div class="filter">
-                  <h5 class="filter__title" data-toggle="genre">
-                    Genre <i class="fa-solid fa-chevron-down"></i>
-                  </h5>
-                  <div class="filter__content" id="genre"></div>
-                </div>
-              </div>
-            </div>
             <div class="games__display--container">
               <div class="game-list__header">
                 <div class="game-list__header--title">
@@ -175,18 +95,107 @@
                   </h2>
                   <h6 class="games__count"></h6>
                 </div>
-                <div class="custom-dropdown">
-                  <button id="sort-filter">
-                    Sort by
-                    <i id="sort-arrow" class="fa-solid fa-chevron-down"></i>
-                  </button>
-                  <div class="dropdown-content">
-                    <div value="DEFAULT">Default</div>
-                    <div value="ALPHA_A_TO_Z">Alphabetical (A-Z)</div>
-                    <div value="ALPHA_Z_TO_A">Alphabetical (Z-A)</div>
-                    <div value="DATE_DESC">Release Date (Old-New)</div>
-                    <div value="DATE_ASC">Release Date (New-Old)</div>
-                    <div value="SCORE">Score (High-Low)</div>
+                <div class="filters">
+                  <button class="clear-filters__btn">Clear Filters</button>
+                  <div class="filters__container">
+                    <div class="filters__icon" id="filters-toggle">
+                      <span class="filters__tooltip">Apply filters</span>
+                      <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <div class="filters-dropdown" id="filters-dropdown">
+                      <div class="filter-column">
+                        <div class="filter">
+                          <h5 class="filter__title" data-toggle="release-year">
+                            Release Year
+                            <i class="fa-solid fa-chevron-down"></i>
+                          </h5>
+                          <div class="filter__content" id="release-year">
+                            <input
+                              type="checkbox"
+                              class="filter-checkbox"
+                              id="to-1999"
+                              name="release-year"
+                              value="to-1999"
+                            />
+                            <label for="to-1999">&lt; 2000</label><br />
+                            <input
+                              type="checkbox"
+                              class="filter-checkbox"
+                              id="2000-2004"
+                              name="release-year"
+                              value="2000-2004"
+                            />
+                            <label for="2000-2004">2000-2004</label><br />
+                            <input
+                              type="checkbox"
+                              class="filter-checkbox"
+                              id="2005-2009"
+                              name="release-year"
+                              value="2005-2009"
+                            />
+                            <label for="2005-2009">2005-2009</label><br />
+                            <input
+                              type="checkbox"
+                              class="filter-checkbox"
+                              id="2010-2014"
+                              name="release-year"
+                              value="2010-2014"
+                            />
+                            <label for="2010-2014">2010-2014</label><br />
+                            <input
+                              type="checkbox"
+                              class="filter-checkbox"
+                              id="2015-2019"
+                              name="release-year"
+                              value="2015-2019"
+                            />
+                            <label for="2015-2019">2015-2019</label><br />
+                            <input
+                              type="checkbox"
+                              class="filter-checkbox"
+                              id="2020-2024"
+                              name="release-year"
+                              value="2020-2024"
+                            />
+                            <label for="2020-2024">2020-2024</label><br />
+                            <input
+                              type="checkbox"
+                              class="filter-checkbox"
+                              id="2025-on"
+                              name="release-year"
+                              value="2025-on"
+                            />
+                            <label for="2025-on">&gt; 2024</label><br />
+                          </div>
+                        </div>
+                        <div class="filter">
+                          <h5 class="filter__title" data-toggle="platform">
+                            Platform <i class="fa-solid fa-chevron-down"></i>
+                          </h5>
+                          <div class="filter__content" id="platform"></div>
+                        </div>
+                        <div class="filter">
+                          <h5 class="filter__title" data-toggle="genre">
+                            Genre <i class="fa-solid fa-chevron-down"></i>
+                          </h5>
+                          <div class="filter__content" id="genre"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="custom-dropdown">
+                      <button id="sort-filter">
+                        Sort by
+                        <i id="sort-arrow" class="fa-solid fa-chevron-down"></i>
+                      </button>
+                      <div class="dropdown-content">
+                        <div value="DEFAULT">Default</div>
+                        <div value="ALPHA_A_TO_Z">Alphabetical (A-Z)</div>
+                        <div value="ALPHA_Z_TO_A">Alphabetical (Z-A)</div>
+                        <div value="DATE_DESC">Release Date (Old-New)</div>
+                        <div value="DATE_ASC">Release Date (New-Old)</div>
+                        <div value="SCORE">Score (High-Low)</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

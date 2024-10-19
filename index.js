@@ -1,11 +1,13 @@
 const gameList = document.querySelector(".game-list");
 const gameListHeader = document.querySelector(".game-list__header")
-const filtersContainer = document.querySelector(".filters__container");
 const mainContainer = document.querySelector(".main__container");
 const gamesDisplayContainer = document.querySelector(".games__display--container");
 const titleText = document.querySelector(".games__display--title");
 const resultsCount = document.querySelector(".games__count");
 const filterTitles = document.querySelectorAll(".filter__title");
+const filtersToggle = document.getElementById("filters-toggle");
+const filtersDropdown = document.getElementById("filters-dropdown");
+const filterContent = document.querySelectorAll(".filter__content");
 const clearFiltersBtn = document.querySelector(".clear-filters__btn");
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
@@ -58,6 +60,13 @@ document.addEventListener("click", function(event) {
     sortBtn.style.borderBottomLeftRadius = "5px";
     sortBtn.style.borderBottomRightRadius = "5px";
   }
+  if (!filtersToggle.contains(event.target) && !filtersDropdown.contains(event.target)) {
+    filtersDropdown.classList.remove("active");
+  }
+});
+
+filtersToggle.addEventListener("click", function() {
+  filtersDropdown.classList.toggle("active");
 });
 
 filterTitles.forEach((title) => {
@@ -143,6 +152,13 @@ function addFiltersToContainer(filterData, filterType, nameAttr) {
 clearFiltersBtn.addEventListener("click", () => {
   const checkboxes = document.querySelectorAll(".filter-checkbox");
   checkboxes.forEach((checkbox) => (checkbox.checked = false));
+  filterContent.forEach(content => {
+    content.classList.remove("expanded");
+    content.style.height = "0px";
+  })
+  filterTitles.forEach(title => {
+    title.classList.remove("active");
+  })
   updateFilters();
   page = 1;
   gameList.innerHTML = "";

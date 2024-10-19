@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
 
 * {
   padding: 0;
@@ -51,7 +51,7 @@ section {
 
 .loading-state {
   position: absolute;
-  top: 50px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   font-size: 36px;
@@ -330,34 +330,93 @@ FILTERS
 .main__container {
   display: flex;
   justify-content: space-between;
+  min-height: 200vh;
 }
 
-.filters__container {
-  padding: 0 64px;
+.filters__icon {
+  color: white;
+  background-color: black;
+  font-size: 16px;
+  margin-right: 4px;
+  padding: 5px 8px;
+  border: 1px solid white;
+  border-radius: 5px;
+  transition: all 300ms ease;
+  position: relative;
+  display: inline-block;
 }
 
-.filters__title--container {
+.filters__icon:hover {
+  cursor: pointer;
+}
+
+.filters__icon .filters__tooltip {
+  visibility: hidden;
+  width: 110px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.filters__icon:hover .filters__tooltip {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 800ms;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 48px;
+}
+
+.filters-dropdown {
+  display: none;
+  position: absolute;
+  width: 100%;
+  max-width: 244px;
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 16px;
+  z-index: 999;
+  top: 40px;
+  left: 16px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.filters-dropdown.active {
   display: flex;
 }
 
-.filters__title,
-.filters label {
-  color: white;
+.filter-column {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
-.filters__title {
-  margin-top: 110px;
-  margin-bottom: 8px;
-  font-size: 18px;
+.filters label {
+  color: white;
 }
 
 .filter__title {
   color: white;
   font-size: 16px;
-  margin: 8px 0;
   cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 8px;
 }
 
 .filter__title i {
@@ -370,18 +429,18 @@ FILTERS
 }
 
 .clear-filters__btn {
-  background: transparent;
-  border: none;
-  color: #fc4242;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  margin: 110px 0 8px 32px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  height: 30px;
+  padding: 0 8px;
+  margin: 0 8px 0 16px;
   transition: all 300ms ease;
 }
 
 .clear-filters__btn:hover {
   cursor: pointer;
-  filter: brightness(80%);
 }
 
 [type="checkbox"] {
@@ -436,12 +495,10 @@ FILTERS
   height: 0;
   overflow: hidden;
   transition: height 300ms ease;
-  margin-left: 12px;
 }
 
 .filter__content.expanded {
   height: auto;
-  margin-left: 12px;
 }
 
 /* 
@@ -463,18 +520,18 @@ GAME LIST
 }
 
 .score--green {
-    border-color: green;
-    color: green;
+  border-color: green;
+  color: green;
 }
 
 .score--orange {
-    border-color: orange;
-    color: orange;
+  border-color: orange;
+  color: orange;
 }
 
 .score--red {
-    border-color: red;
-    color: red;
+  border-color: red;
+  color: red;
 }
 
 .game-list__header {
@@ -485,12 +542,12 @@ GAME LIST
 }
 
 .game-list__header--title {
-  padding-left: 32px;
+  padding-left: 16px;
 }
 
 .games__display--container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -512,7 +569,9 @@ GAME LIST
 .custom-dropdown {
   position: relative;
   display: inline-block;
-  padding-right: 32px;
+  margin-right: 16px;
+  border: 1px solid white;
+  border-radius: 5px;
 }
 
 #sort-filter {
@@ -540,12 +599,18 @@ GAME LIST
 .dropdown-content {
   display: none;
   position: absolute;
+  top: 28px;
+  left: -1px;
   background-color: black;
-  min-width: 250px;
+  min-width: 252px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   z-index: 1;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
 }
+
 
 .dropdown-content div {
   color: white;
@@ -556,7 +621,7 @@ GAME LIST
 
 .dropdown-content div:hover {
   background-color: #a0ff1d;
-  color:#1f1f1f;
+  color: #1f1f1f;
 }
 
 .game-list {
@@ -568,7 +633,6 @@ GAME LIST
 .game-card__container {
   position: relative;
   width: 100%;
-  max-width: 350px;
   flex-grow: 1;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
@@ -585,10 +649,10 @@ GAME LIST
 }
 
 .game-card {
-  width: calc(100% / 3);
+  width: calc(100% / 4);
   display: flex;
   flex-direction: column;
-  padding: 0 32px 64px 32px;
+  padding: 0 16px 32px 16px;
 }
 
 .game__img--wrapper {
@@ -797,15 +861,11 @@ RESPONSIVENESS
   .header__description {
     font-size: 20px;
   }
-  .game-card {
-    width: calc(100% / 2);
-  }
-  .game-list,
-  .game-list__header {
-    max-width: calc(2 * (350px + 64px));
-  }
   .games__display--title {
     font-size: 28px;
+  }
+  .game-card {
+    width: calc(100% / 3);
   }
 }
 
@@ -820,18 +880,7 @@ RESPONSIVENESS
     height: 44px;
     font-size: 16px;
   }
-  .game-card {
-    width: 100%;
-  }
-  .game-list__header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .custom-dropdown {
-    padding: 0 0 32px 32px;
-  }
   .games__count {
-    margin-bottom: 16px;
     font-size: 14px;
   }
   .games__display--title {
@@ -848,6 +897,12 @@ RESPONSIVENESS
   }
 }
 
+@media (max-width: 850px) {
+  .game-card {
+    width: calc(100% / 2);
+  }
+}
+
 @media (max-width: 768px) {
   .header__title {
     font-size: 36px;
@@ -861,8 +916,14 @@ RESPONSIVENESS
   .footer__link--anchor {
     font-size: 14px;
   }
-  .filters__container {
-    padding: 0 32px;
+}
+
+@media (max-width: 640px) {
+  #sort-filter {
+    width: 200px;
+  }
+  .dropdown-content {
+    min-width: 202px;
   }
 }
 
@@ -876,34 +937,39 @@ RESPONSIVENESS
   .header__title {
     font-size: 32px;
   }
-  .filters__title,
-  .clear-filters__btn {
-    margin-top: 0;
+  .games__display--container {
+    align-items: center;
   }
-  .filters__container {
-    margin-bottom: 16px;
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .clear-filters__btn {
+    margin-bottom: 8px;
+  }
+  .filters__icon {
+    margin-left: 16px;
+  }
+  .filters-dropdown {
+    margin: 0 16px;
+    top: 80px;
+    left: 0;
   }
   .game-list__header {
-    align-items: center;
+    flex-direction: column;
   }
-  .custom-dropdown,
   .game-list__header--title {
     padding-left: 0;
+    text-align: center;
   }
-  .custom-dropdown {
-    padding-bottom: 24px;
+  .games__count {
+    margin-bottom: 32px;
   }
-  .filters__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .filter {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .game-list {
+    max-width: 350px;
   }
   .game-card {
+    width: 100%;
     align-items: center;
   }
 }
